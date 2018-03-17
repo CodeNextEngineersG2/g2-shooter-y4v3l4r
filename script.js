@@ -44,7 +44,11 @@ function setup() {
 background(20,30,40);
 gameScreen = select("#game-screen");
 canvas.parent(gameScreen);
-
+shipColor = "#00ff00";
+shipDiameter = 80;
+shipX = width/2;
+shipY = height - (shipDiameter / 2);
+shipSpeed = 6;
 }
 
 /*
@@ -67,14 +71,26 @@ canvas.parent(gameScreen);
  * This function animates the ship, alien, and both kinds of bullets, but only
  * if the game is running.
  */
-
+function draw() {
+  background(20,30,40);
+  drawShip();
+}
 
 /*
  * drawShip()
  * This function draws the player's ship. It also controls the ship's
  * x value by checking if the player is holding down the left or right keys.
  */
-
+function drawShip() {
+  if(keyIsDown(LEFT_ARROW) && shipX > shipDiameter / 2) {
+    shipX -= shipSpeed;
+  }
+  else if(keyIsDown(RIGHT_ARROW) && shipX < width - shipDiameter / 2) {
+    shipX += shipSpeed;
+  }
+  fill(shipColor);
+  ellipse(shipX, shipY, shipDiameter, shipDiameter);
+}
 
 /*
  * keyPressed()
